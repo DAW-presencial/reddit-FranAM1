@@ -10,7 +10,7 @@ class Community extends Model
     use HasFactory;
 
     function posts(){
-        return $this->hasMany('App\Models\Posts');
+        return $this->hasMany(Post::class);
     }
 
 

@@ -17,11 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->string('summary');
             $table->string('content');
-            $table->boolean('expirable')->nullable();
-            $table->boolean('commentable')->nullable();
-            $table->string('access');
             $table->integer('likes')->nullable();
             $table->integer('dislikes')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

@@ -18,11 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence,
-            'summary' => $this->faker->paragraph,
             'content' => $this->faker->paragraph,
-            'expirable' => $this->faker->boolean,
-            'commentable' => $this->faker->boolean,
-            'access' => $this->faker->randomElement(['public', 'private']),
             'likes' => $this->faker->numberBetween(0, 100),
             'dislikes' => $this->faker->numberBetween(0, 100),
         ];

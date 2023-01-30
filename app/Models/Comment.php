@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     function users(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     function posts(){
-        return $this->belongsTo('App\Models\Posts');
+        return $this->belongsTo(Post::class);
     }
 }
 
