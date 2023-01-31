@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Community;
 
 class CommunityController extends Controller
 {
@@ -13,7 +14,7 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        //
+        return Community::all();
     }
 
     /**
