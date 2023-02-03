@@ -19,4 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/communities', [CommunityController::class, 'index']);
+Route::resource('/communities', CommunityController::class)->except(['create', 'edit']);
+Route::resource('/posts', CommunityController::class)->except(['create', 'edit']);
+Route::resource('/comments', CommunityController::class)->except(['create', 'edit']);
+
