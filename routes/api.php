@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('/communities', CommunityController::class)->except(['create', 'edit']);
-Route::resource('/posts', CommunityController::class)->except(['create', 'edit']);
-Route::resource('/comments', CommunityController::class)->except(['create', 'edit']);
+Route::resource('/posts', PostController::class)->except(['create', 'edit']);
+Route::resource('/comments', CommentController::class)->except(['create', 'edit']);
 
