@@ -18,7 +18,6 @@ class CommunityFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'creator' => $this->faker->name,
         ];
     }
 }

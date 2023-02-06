@@ -26,19 +26,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        
+        $user = User::factory()->create([
+            'name' => 'Test User',
+            'email' => '
+        ']);
 
-        $user = User::factory()->create();
-
-        $community = Community::factory()->create();
+        $community = Community::factory()->create([
+            'name' => 'Test Community',
+        ]);
 
         $post = Post::factory()->create([
+            'title' => 'Test Post',
+            'content' => 'Test Post Body',
             'user_id' => $user->id,
             'community_id' => $community->id,
         ]);
 
         $comment = Comment::factory()->create([
+            'content' => 'Test Comment',
             'user_id' => $user->id,
             'post_id' => $post->id,
         ]);
+
+        $user->communities()->attach($community);
+
+        ;
     }
 }
