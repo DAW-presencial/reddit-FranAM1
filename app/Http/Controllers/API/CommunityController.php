@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Community;
 
@@ -14,7 +15,9 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        return Community::all();
+        return response()->json([
+            'communities' => Community::all(),
+        ]);
     }
 
     /**
