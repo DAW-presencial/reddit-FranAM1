@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -14,7 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        //index for api for posts
+        $posts = Post::all();
+        return response()->json($posts);
     }
 
     /**
@@ -25,7 +28,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::create($request->all());
+        return response()->json($post);
     }
 
     /**
@@ -36,7 +40,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return response()->json($post);
     }
 
     /**
@@ -48,7 +53,9 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $post->update($request->all());
+        return response()->json($post);
     }
 
     /**
@@ -59,6 +66,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        return response()->json('Post '+$id+' deleted');
     }
 }
