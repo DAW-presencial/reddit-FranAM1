@@ -28,7 +28,10 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json([
+            'message' => 'Community created successfully',
+            Community::show($request->id)
+        ]);
     }
 
     /**
@@ -39,7 +42,9 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json([
+            'community' => Community::find($id),
+        ]);
     }
 
     /**
@@ -51,7 +56,9 @@ class CommunityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->json([
+            'message' => 'Community updated successfully',
+        ]);
     }
 
     /**
@@ -62,6 +69,10 @@ class CommunityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $community = Community::find($id);
+        $community->delete();
+        return response()->json([
+            'message' => 'Community deleted successfully',
+        ]);
     }
 }
