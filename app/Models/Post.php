@@ -25,10 +25,13 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    function users()
+    function user()
     {
         return $this->belongsTo(User::class);
     }
 
-
+    function community()
+    {
+        return $this->belongsTo(Community::class);
+    }
 }

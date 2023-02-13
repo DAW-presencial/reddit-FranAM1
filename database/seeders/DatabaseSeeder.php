@@ -27,30 +27,46 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         
-        $user = User::factory()->create([
-            'name' => 'Test User',
-            'email' => '
-        ']);
-
-        $community = Community::factory()->create([
-            'name' => 'Test Community',
+        $fran = User::factory()->create([
+            'name' => 'Fran',
+            'email' => 'fran@gmail.com',
         ]);
 
-        $post = Post::factory()->create([
-            'title' => 'Test Post',
-            'content' => 'Test Post Body',
-            'user_id' => $user->id,
-            'community_id' => $community->id,
+        $jordi = User::factory()->create([
+            'name' => 'Jordi',
+            'email' => 'jordi@gmail.com',
         ]);
 
-        $comment = Comment::factory()->create([
-            'content' => 'Test Comment',
-            'user_id' => $user->id,
-            'post_id' => $post->id,
-        ]);
+        for($i = 1; $i < 6; $i++){
+            if($i % 2 == 0){
+                $user = $fran;
+            } else {
+                $user = $jordi;
+            }
 
-        $user->communities()->attach($community);
+            
 
-        ;
+            $community = Community::factory()->create([
+                'name' => 'Test Community ' . $i,
+            ]);
+
+            $post = Post::factory(rand(1,5))->create([
+                'title' => 'Test Post ' . $i,
+                'content' => 'Test Post Body ' . $i,
+                'user_id' => $user->id,
+                'community_id' => $community->id,
+            ]);
+            
+            foreach($post as $p){
+                Comment::factory(rand(1,3))->create([
+                    'content' => 'Test Comment ' . $i,
+                    'user_id' => $user->id,
+                    'post_id' => $p->id,
+                ]);
+            }
+            
+
+            $user->communities()->attach($community);
+        }
     }
 }

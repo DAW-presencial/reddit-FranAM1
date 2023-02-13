@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Community;
+use App\Http\Resources\CommunityResource;
 
 class CommunityController extends Controller
 {
@@ -15,9 +16,7 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'communities' => Community::all(),
-        ]);
+        return CommunityResource::collection(Community::all());
     }
 
     /**

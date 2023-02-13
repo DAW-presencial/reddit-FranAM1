@@ -21,7 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/communities', CommunityController::class);
-Route::resource('/posts', PostController::class);
-Route::resource('/comments', CommentController::class);
+Route::apiResource('communities', CommunityController::class);
 
