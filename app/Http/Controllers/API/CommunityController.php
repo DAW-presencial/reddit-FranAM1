@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommunityRequest;
 use Illuminate\Http\Request;
 use App\Models\Community;
 use App\Http\Resources\CommunityResource;
@@ -25,12 +26,11 @@ class CommunityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommunityRequest $request)
     {
-        return response()->json([
-            'message' => 'Community created successfully',
-            Community::show($request->id)
-        ]);
+        $community = Community::create($request->all());
+
+        return new CommunityResource($community);
     }
 
     /**
@@ -41,9 +41,7 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
-        return response()->json([
-            'community' => Community::find($id),
-        ]);
+        return new CommunityResource(Community::find($id));
     }
 
     /**
@@ -53,11 +51,13 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommunityRequest $request, $id)
     {
-        return response()->json([
-            'message' => 'Community updated successfully',
-        ]);
+        $community = Community::find($id);
+
+        $community->update($request->all());
+
+        return new CommunityResource($community);
     }
 
     /**
@@ -68,10 +68,6 @@ class CommunityController extends Controller
      */
     public function destroy($id)
     {
-        $community = Community::find($id);
-        $community->delete();
-        return response()->json([
-            'message' => 'Community deleted successfully',
-        ]);
+        return Community::destroy($id);
     }
 }

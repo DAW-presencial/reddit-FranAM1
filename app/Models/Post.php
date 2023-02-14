@@ -11,13 +11,11 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'summary',
         'content',
-        'expirable',
-        'commentable',
-        'access',
         'likes',
         'dislikes',
+        'user_id',
+        'community_id',
     ];
 
     function comments()

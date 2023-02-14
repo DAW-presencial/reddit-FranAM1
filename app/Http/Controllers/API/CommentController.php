@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentResource;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
@@ -13,12 +15,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        //
-        return response()->json([
-            'comments' => Comment::where('post_id', $id)->get(),
-        ]);
+        return CommentResource::collection(Comment::all());
     }
 
     /**
@@ -27,12 +26,11 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        //
-        return response()->json([
-            'comment' => Comment::create($request->all()),
-        ]);
+        $comment = Comment::create($request->all());
+
+        return new CommentResource($comment);
     }
 
     /**
@@ -43,11 +41,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
-        return response()->json([
-            'comment' => Comment::find($id),
-        ]);
-
+        return new CommentResource(Comment::find($id));
     }
 
     /**
@@ -59,9 +53,10 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $comment = Comment::find($id);
         $comment->update($request->all());
+
+        return new CommentResource($comment);
     }
 
     /**
@@ -72,8 +67,6 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $comment = Comment::find($id);
-        $comment->delete();
+        return Comment::destroy($id);
     }
 }
