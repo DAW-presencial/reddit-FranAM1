@@ -41,6 +41,8 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
+        if (!Community::find($id)) return response()->json(['error' => 'Community not found'], 404);
+
         return new CommunityResource(Community::find($id));
     }
 
@@ -68,6 +70,8 @@ class CommunityController extends Controller
      */
     public function destroy($id)
     {
-        return Community::destroy($id);
+        Community::destroy($id);
+
+        return response()->noContent();
     }
 }
