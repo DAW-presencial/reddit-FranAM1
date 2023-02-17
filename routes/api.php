@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CommunityController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\TokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('communities', CommunityController::class)->only(['index', 'show']);
+Route::apiResource('communities', CommunityController::class)->middleware('auth:sanctum');
 Route::apiResource('posts', PostController::class)->only(['index', 'show']);
 Route::apiResource('comments', CommentController::class)->only(['index', 'show']);
 
@@ -30,4 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('posts', PostController::class)->except(['index', 'show']);
     Route::apiResource('comments', CommentController::class)->except(['index', 'show']);
 });
+
+Route::post('token', [TokenController::class, 'createToken']);
 
