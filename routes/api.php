@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('communities', CommunityController::class)->middleware('auth:sanctum');
+Route::apiResource('communities', CommunityController::class)->only(['index', 'show']);
 Route::apiResource('posts', PostController::class)->only(['index', 'show']);
 Route::apiResource('comments', CommentController::class)->only(['index', 'show']);
 
