@@ -41,6 +41,8 @@ class CommentController extends Controller
      */
     public function show($id)
     {
+        if (!Comment::find($id)) return response()->json(['error' => 'Comment not found'], 404);
+
         return new CommentResource(Comment::find($id));
     }
 
@@ -53,6 +55,8 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!Comment::find($id)) return response()->json(['error' => 'Comment not found'], 404);
+
         $comment = Comment::find($id);
         $comment->update($request->all());
 
@@ -67,6 +71,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        return Comment::destroy($id);
+        if (!Comment::find($id)) return response()->json(['error' => 'Comment not found'], 404);
+
+        Comment::destroy($id);
+
+        return response()->noContent();
     }
 }

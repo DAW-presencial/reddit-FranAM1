@@ -55,6 +55,8 @@ class CommunityController extends Controller
      */
     public function update(CommunityRequest $request, $id)
     {
+        if (!Community::find($id)) return response()->json(['error' => 'Community not found'], 404);
+        
         $community = Community::find($id);
 
         $community->update($request->all());
@@ -70,6 +72,8 @@ class CommunityController extends Controller
      */
     public function destroy($id)
     {
+        if (!Community::find($id)) return response()->json(['error' => 'Community not found'], 404);
+
         Community::destroy($id);
 
         return response()->noContent();

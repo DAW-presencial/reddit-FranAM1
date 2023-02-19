@@ -41,6 +41,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        if (!Post::find($id)) return response()->json(['error' => 'Post not found'], 404);
+
         return new PostResource(Post::find($id));
     }
 
@@ -53,6 +55,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!Post::find($id)) return response()->json(['error' => 'Post not found'], 404);
+
         $post = Post::find($id);
         $post->update($request->all());
 
@@ -67,6 +71,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        return Post::destroy($id);
+        if (!Post::find($id)) return response()->json(['error' => 'Post not found'], 404);
+
+        Post::destroy($id);
+
+        return response()->noContent();
     }
 }
